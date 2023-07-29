@@ -15,7 +15,7 @@ $users  = getUsers();
 ?>
 
 
-<h2>Notre équipe </h2>
+<h2>Notre équipe</h2>
 <div class="row">
     <div class="col-12 cardUser">
         <?php
