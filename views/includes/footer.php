@@ -1,4 +1,4 @@
-<footer>
+<footer class="container-fluid ">
     <h4>Pour nous contacter</h4>
 
 <address>
@@ -7,7 +7,7 @@
     <p>75 000 Paris</p>
 </address>
 
-    <p> Copyright @ 2023 All rights reserved by :
+    <p class="copyright"> Copyright @ 2023 All rights reserved by :
         <a href="mailto:giacomettivirginie@gmail.com" alt="Contactez-moi par mail" title="Contactez-moi par mail"><strong>Virginie Giacometti</strong></a>
     </p>
 </footer>
