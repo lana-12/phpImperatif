@@ -18,6 +18,7 @@ $users  = getUsers();
 <h2>Notre équipe </h2>
     <div class="row">
         <div class="col-12 cardUser">
+
         <?php
             $level = 1;
             echo '<table class="table">
