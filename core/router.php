@@ -5,6 +5,7 @@ $page = 'home.php';
 
 if(isset($_GET['page'])){
     switch ($_GET['page']){
+        
         case 'quiSommesNous':
             $page = 'about.php';
             break;

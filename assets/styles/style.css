@@ -1,0 +1,23 @@
+body {
+  background-color: #139913;
+}
+
+footer {
+  background: #000;
+  color: #fff;
+  text-align: center;
+}
+
+.copyright {
+  font-size: 0.6em;
+  padding: 5px;
+  margin: 0;
+  font-family: "Birthstone", cursive;
+}
+
+.cardUser {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}/*# sourceMappingURL=style.css.map */
