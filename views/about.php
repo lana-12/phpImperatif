@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <h2 class="center">Qui sommes nous ??</h2>
 
 <div class="row">
