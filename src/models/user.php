@@ -6,10 +6,9 @@ require_once(dirname(__FILE__) . '/../utils/functions.php');
 
 // TODOLIST
     // 1.   Function getUser
-    // 2.   Function createUser
+    // 2.   Function setUser
     // 3.   Function updateUser
     // 4.   Function deleteUser
-    // 5.   Function searchUser
 
 
 function getUsers()
@@ -35,7 +34,7 @@ function getUsers()
             ];
         }
         // dump($users[3]['email']);
-        fclose($file_pointer);
+        // fclose($file_pointer);
         return $users;
     } else {
         echo 'Oups, une erreur est survenue lors de l\'ouverture du fichier !!!';
@@ -44,37 +43,40 @@ function getUsers()
 
 
 
-// function searchUser($email, $pwd)
-// {   
-//     $users = getUsers();
-//     // dump($users);
-//     //Verifie si $var est un array => is_array($var)
-// if(array_key_exists($email, $users)){
-//     echo 'ok';
-// }else {
-//     echo 'oups ';
-// }
-//     // if(is_array($users)){
-//     //     dump('It\'s an array');
-//     //     foreach ($users as $user) {
-//     //         dump($user['email']);
-//     //         // dump($value);
+function setUser()
+{
+    $errors=[];
+    dump($_POST);
 
-//     //         // if($key['email'] === $email && password_verify($pwd, $key['password'])){
-//     //         //     echo 'Vous êtes identifié';
-//     //         //     return true;
-//     //         // } else {
-//     //         //     echo 'L\'identifiant et/ou le mot de passe n\'existe pas !!';
-//     //         //     return false;
-//     //         // }
-//     //     }
-//     //     // return true ;
-//     // } else {
-//     //     dump('not an array');
-//     //     // return false;
-//     // }
-// }
+    if(isset($_POST['submit'])){
 
+        if(isset($_POST['firstname']) && $_POST['firstname'] !== ''){
+
+            if(isset($_POST['lastname']) && $_POST['lastname'] !== ''){
+                
+            } else {
+                $errors[] = 'Votre nom est oblogatoire !!';
+            }
+
+        }else {
+            $errors[] = 'Votre prénom est oblogatoire !!';
+        }
+
+    }
+
+
+    //Marche pas les erreurs ne sont tte ds le array il y a que la première
+
+    // dump($errors);
+    if(count($errors) > 0){
+        foreach($errors as $error){
+            // echo $error;
+            echo '<div class="alert alert-danger mt-5" role="alert">
+                <p class="text-center ">'.$error.'</p>
+            </div>';
+        }
+    }
+}
 
 
 

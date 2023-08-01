@@ -47,22 +47,26 @@ function connect()
         if (isset($_POST['email']) && isset($_POST['password'])) {
             if (search_user($_POST['email'], $_POST['password']) === true) {
                 session_start();
-                $_SESSION['user'] = true;
+                $_SESSION['user'] = [
+                    'connect'=> true,
+                    'email' =>  $_POST['email'],
+                ];
 
                 header('location: http://' . $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . '/index.php?page=accueil');
             } else {
                 echo '
                 <div class="alert alert-danger mt-5" role="alert">
                     <p class="text-center ">Utilisateur Inconnu</p>
-                    <a href="/index.php?page=creation">Créer un compte</a>
                 </div>
                 ';
             }
         }
-    } else {
-        session_destroy();
-    }
+    } 
+    // else {
+    //     session_destroy();
+    // }
 }
+
 
 
 
@@ -98,3 +102,4 @@ function search_user($email, $pwd)
     }
     return false;
 }
+

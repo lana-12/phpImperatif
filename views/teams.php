@@ -1,9 +1,9 @@
 <?php
 session_start();
 
+
 require(dirname(__FILE__) . '/../src/utils/functions.php');
 require(dirname(__FILE__) . '/../src/models/user.php');
-
 
 $users  = getUsers();
 //Get a queryString + handle errors if not clicked
@@ -14,11 +14,15 @@ if (isset($_GET['sort']) && isset($_GET['order'])) {
 ?>
 
 <h2>Notre équipe </h2>
+<?php if (isset($_SESSION['user']) && $_SESSION['user']) {
+    echo '<p class="text-muted"><i class="bi bi-person-fill">Connecté en tant que <span class="user">' . $_SESSION['user']['email'] . ' </span></i></p>';
+} ?>
+
 <div class="row">
     <div class="col-12">
 
         <?php
-        if (isset($_SESSION['user']) && $_SESSION['user'] === true) {
+        if (isset($_SESSION['user']) && $_SESSION['user']) {
 
             $sorts = getSortOrder();
             $level = 1;
@@ -52,6 +56,7 @@ if (isset($_GET['sort']) && isset($_GET['order'])) {
             <div class="alert alert-danger mt-5" role="alert">
                 <p class="text-center ">Vous devez être connecté</p>
                 <a href="/index.php?page=connexion">Se connecter</a>
+                <a href="/index.php?page=creation"> / Créer un compte</a>
             </div>
         <?php }
         ?>

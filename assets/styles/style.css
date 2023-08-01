@@ -1,6 +1,6 @@
 footer {
   background: #000;
-  position: fixed;
+  position: relative;
   bottom: 0;
   color: #fff;
   text-align: center;
@@ -14,9 +14,7 @@ footer {
   font-family: "Birthstone", cursive;
 }
 
-.cardUser {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
+.user {
+  text-decoration: underline;
+  font-style: italic;
 }/*# sourceMappingURL=style.css.map */
