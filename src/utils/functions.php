@@ -44,7 +44,6 @@ function getSortOrder()
 
 
 
-
 /**
  * makes var_dump more readable
  * @param variable

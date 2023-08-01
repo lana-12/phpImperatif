@@ -12,13 +12,17 @@ require_once(dirname(__FILE__) . '/views/includes/head.php');
     <?php
 
     require_once(dirname(__FILE__) . '/views/includes/header.php');
-
     ?>
 
 
     <main class="container">
+        
         <!-- Récupération du router qui s'occupe de charger la bonne page -->
-        <?php require_once(dirname(__FILE__) . '/core/router.php') ;
+        <?php
+
+        
+
+        require_once(dirname(__FILE__) . '/core/router.php') ;
         
         // var_dump(dirname(__FILE__));
         ?>

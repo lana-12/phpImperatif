@@ -22,6 +22,10 @@ if(isset($_GET['page'])){
             $page = 'logout.php';
             break;
 
+        case 'creation':
+            $page = 'createUser.php';
+            break;
+
         default:
             $page = 'home.php';
             break;

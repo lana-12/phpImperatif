@@ -1,15 +1,14 @@
 <?php
 require_once(dirname(__FILE__) . '/../core/security.php');
-
-// postLog();
 connect();
+
 ?>
 
 <h2>Me connecter</h2>
 
 <?php if (isset($_SESSION["user"]) && ($_SESSION["user"])) : ?>
     <div class="alert alert-success mt-5" role="alert">
-        <p class="text-center ">Vous êtes déjà connecté</p>
+        <p class="text-center ">Vous êtes déjà connecté en tant que <span class="user"><?php echo $_SESSION['user']['email']  ?></span></p>
         <a href="/index.php?page=deconnexion">Se déconnecter</a>
     </div>
 
@@ -25,7 +24,11 @@ connect();
             <input type="hidden" value="connect" name="connexion">
         </div>
 
-        <input type="submit" class="btn btn-primary" value="Envoyer">
+        <div class="d-flex justify-content-between">
+            <input type="submit" class="btn btn-primary" value="Envoyer">
+            <a href="/index.php?page=creation " class="btn btn-primary">Créer un compte</a>
+
+        </div>
 
     </form>
 
