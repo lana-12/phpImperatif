@@ -18,6 +18,10 @@ if(isset($_GET['page'])){
             $page = 'login.php';
             break;
 
+        case 'deconnexion':
+            $page = 'logout.php';
+            break;
+
         default:
             $page = 'home.php';
             break;

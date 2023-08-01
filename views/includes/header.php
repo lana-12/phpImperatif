@@ -26,7 +26,7 @@
 
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Déconnexion</a>
+                        <a class="nav-link" href="/index.php?page=deconnexion">Déconnexion</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="/index.php?page=connexion">Connexion</a>
