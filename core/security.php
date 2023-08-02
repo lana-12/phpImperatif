@@ -24,24 +24,8 @@ function postLog()
 
 function connect()
 {
-    //Start test
-// $users = read_users();
-
-//     // dump(read_users());
-//     // dump(search_user($_POST['email']));
-//     if (search_user($_POST['email'], $_POST['password']) === true) {
-//         echo 'Youpy';
-
-    
-//     } else {
-//         echo 'putain de MERDE';
-//     }
-    //End test
-
-
 
     session_start();
-    // Soit l'utilisateur vient de renseigner le formulaire et on vérifie que le couple login/mdp est
     if (isset($_POST['connexion']) && $_POST['connexion'] === 'connect') {
         session_destroy();
         if (isset($_POST['email']) && isset($_POST['password'])) {
@@ -109,17 +93,14 @@ function searchByEmail($email)
 {
     $users = read_users();
     if (array_key_exists($email, $users)) {
-        echo 'ok';
         return true;
     }
-    echo 'non';
     return false;
 }
 
 
 function addUser($firstname, $lastname, $email, $pwd)
 {
-    echo 'addUser';
     if ($fp = fopen(dirname(__FILE__) . '/../src/datas/users.csv', 'a')) {
         if (fputcsv($fp, [$firstname, $lastname, $email, password_hash($pwd, PASSWORD_DEFAULT)], ';')) {
             return true;

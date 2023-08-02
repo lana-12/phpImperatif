@@ -42,13 +42,12 @@ function getUsers()
     }
 }
 
-//searchByEmail
 
 
 function setUser()
 {
     $errors=[];
-    dump($_POST);
+    // dump($_POST);
 
     if(isset($_POST['submit'])){
 
@@ -59,26 +58,32 @@ function setUser()
 
                     $user = searchByEmail($_POST['email']);
                     if($user === true){
-                        $errors[]= "L'email existe déjà!!";
+                        $errors[]= "L'email existe déjà !!";
                     }else{
                         if(addUser($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['password'] )){
-                            echo 'Uutilisateur bien enregistré';
+                            // echo 'Uutilisateur bien enregistré';
+                            echo '
+                            <div class="alert alert-success mt-5" role="alert">
+                            <p class="text-center ">Utilisateur bien enregistré</p>
+                            <a href="/index.php?page=accueil">Connecter vous !!</a>
+                            </div>';
+                            
                         } else {
                             echo 'Une erreur est survenue lors de l\' enregistrement';
                         }
                     }
 
                 }else{
-                    $errors[]= 'Mot de passe obligatoire !!';
+                    $errors= 'Mot de passe obligatoire !!';
                 }
 
 
             } else {
-                $errors[] = 'Votre nom est obligatoire !!';
+                $errors = 'Votre nom est obligatoire !!';
             }
 
         }else {
-            $errors[] = 'Votre prénom est obligatoire !!';
+            $errors = 'Votre prénom est obligatoire !!';
         }
 
     }
@@ -89,7 +94,6 @@ function setUser()
     // dump($errors);
     if(count($errors) > 0){
         foreach($errors as $error){
-            // echo $error;
             echo '<div class="alert alert-danger mt-5" role="alert">
                 <p class="text-center ">'.$error.'</p>
             </div>';
@@ -98,5 +102,23 @@ function setUser()
 }
 
 
+
+function deleteUsers(&$users, $index)
+{
+    $file_path = dirname(__FILE__) . '/../datas/users.csv';
+    if (file_exists($file_path)) {
+
+        $file_pointer = fopen($file_path, 'w');
+        foreach ($users as $i => $user) {
+            // echo'heillo';
+            // dump('$i ' . $i);
+            // dump('$user ' . $user['email']);
+            if ($index != $user['email']) {
+                fwrite($file_pointer, $user["firstname"] . ';' . $user["lastname"] . ';'  . $user["email"] . ';' . $user["password"] . PHP_EOL);
+            } else unset($users);
+        }
+        fclose($file_pointer);
+    }
+}
 
 
