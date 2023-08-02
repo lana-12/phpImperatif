@@ -11,6 +11,12 @@ if (isset($_GET['sort']) && isset($_GET['order'])) {
     sortAlpha($users, $_GET['sort'], $_GET['order']);
 }
 
+if (isset($_SESSION['user']) && $_SESSION['user'] && isset($_GET["delete"])) {
+dump($_GET['delete']);
+deleteUsers($users, $_GET['delete']);
+    header('location: http://' . $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . '/index.php?page=membres');
+    }
+
 ?>
 
 <h2>Notre équipe </h2>
@@ -35,8 +41,6 @@ if (isset($_GET['sort']) && isset($_GET['order'])) {
             echo "\n" . ' </thead>';
             echo "\n" . ' <tbody>';
         
-
-            
             foreach ($users as $user) {
                 echo '
                 <tr>
@@ -44,6 +48,8 @@ if (isset($_GET['sort']) && isset($_GET['order'])) {
                     <td>' . $user['firstname'] . '</td>
                     <td>' . $user['lastname'] . '</td>
                     <td>' . $user['email'] . '</td>
+                    <td><a href="/index.php?page=membres&update='.$user['email'].'" class="btn btn-warning">Modifier</a></td>
+                    <td><a href="/index.php?page=membres&delete='.$user['email'].'" class="btn btn-danger">Supprimer</a></td>
                 </tr>
                 ';
             }

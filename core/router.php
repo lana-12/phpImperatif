@@ -26,6 +26,10 @@ if(isset($_GET['page'])){
             $page = 'createUser.php';
             break;
 
+        case 'delete':
+            $page = 'delete.php';
+            break;
+
         default:
             $page = 'home.php';
             break;
