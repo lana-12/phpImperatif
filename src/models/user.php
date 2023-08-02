@@ -1,5 +1,6 @@
 <?php
 require_once(dirname(__FILE__) . '/../utils/functions.php');
+require_once(dirname(__FILE__) . '/../../core/security.php');
 
 // dump(dirname(__FILE__)); //"C:\xampp\htdocs\mes-sites\diginamic\phpTP\src\utils"
 // dump(dirname(__FILE__). '/datas'); //"C:\xampp\htdocs\mes-sites\diginamic\phpTP\src\utils/datas"
@@ -41,6 +42,7 @@ function getUsers()
     }
 }
 
+//searchByEmail
 
 
 function setUser()
@@ -53,13 +55,30 @@ function setUser()
         if(isset($_POST['firstname']) && $_POST['firstname'] !== ''){
 
             if(isset($_POST['lastname']) && $_POST['lastname'] !== ''){
-                
+                if(isset($_POST['password']) && $_POST['password'] !== ''){
+
+                    $user = searchByEmail($_POST['email']);
+                    if($user === true){
+                        $errors[]= "L'email existe déjà!!";
+                    }else{
+                        if(addUser($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['password'] )){
+                            echo 'Uutilisateur bien enregistré';
+                        } else {
+                            echo 'Une erreur est survenue lors de l\' enregistrement';
+                        }
+                    }
+
+                }else{
+                    $errors[]= 'Mot de passe obligatoire !!';
+                }
+
+
             } else {
-                $errors[] = 'Votre nom est oblogatoire !!';
+                $errors[] = 'Votre nom est obligatoire !!';
             }
 
         }else {
-            $errors[] = 'Votre prénom est oblogatoire !!';
+            $errors[] = 'Votre prénom est obligatoire !!';
         }
 
     }

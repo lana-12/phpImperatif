@@ -103,3 +103,29 @@ function search_user($email, $pwd)
     return false;
 }
 
+
+
+function searchByEmail($email)
+{
+    $users = read_users();
+    if (array_key_exists($email, $users)) {
+        echo 'ok';
+        return true;
+    }
+    echo 'non';
+    return false;
+}
+
+
+function addUser($firstname, $lastname, $email, $pwd)
+{
+    echo 'addUser';
+    if ($fp = fopen(dirname(__FILE__) . '/../src/datas/users.csv', 'a')) {
+        if (fputcsv($fp, [$firstname, $lastname, $email, password_hash($pwd, PASSWORD_DEFAULT)], ';')) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    return false;
+}
