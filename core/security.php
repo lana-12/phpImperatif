@@ -66,10 +66,9 @@ function read_users()
             // $mdp = $user[0] = $user[3];
             // dump('mdp : ' . $mdp);
 
-
             //ICI on recup la clé email + value du mdp
             // dump('key email + value MDP : '.$user[2] = $user[3]);
-            $result[$user[2] ]= $user[3];
+            $result[$user[2]]= $user[3];
         }
         fclose($fp);
         return $result;
@@ -101,6 +100,7 @@ function searchByEmail($email)
 
 function addUser($firstname, $lastname, $email, $pwd)
 {
+    // "a" ouvrir en pointant à la fin du fichier
     if ($fp = fopen(dirname(__FILE__) . '/../src/datas/users.csv', 'a')) {
         if (fputcsv($fp, [$firstname, $lastname, $email, password_hash($pwd, PASSWORD_DEFAULT)], ';')) {
             return true;
@@ -109,4 +109,46 @@ function addUser($firstname, $lastname, $email, $pwd)
         }
     }
     return false;
+}
+
+// recupere les user sous forme de array les index sont les users
+// ex openUser()[0]=> return le first, [1]=> le second etc...
+function openUser()
+{
+    // $result = [];
+    if ($fp = fopen(dirname(__FILE__) . '/../src/datas/users.csv', 'r')) {
+        $i = 0;
+        while ($user = fgetcsv($fp, null, ';')) {
+            $result[$i] = $user;
+            // dump($result[$i]);
+            $i++;            
+            
+        }
+        fclose($fp);
+        return $result;
+    } else {
+        echo 'Erreur pendant l\'ouverture du fichier<br>';
+    }
+}
+
+
+/**
+ * Undocumented function
+ * Formater les new datas enlever les espace + hash
+ * @param array $user
+ * @return void
+ */
+function formatUser($user){
+    // dump($user[3]);
+    if($user[3] !== ""){
+        $hash = password_hash($user[3], PASSWORD_DEFAULT);
+    }
+    // dump($hash);
+    $newUser= [
+        trim($user[0]),
+        trim($user[1]),
+        trim($user[2]),
+        trim($hash)
+    ];
+    return $newUser;
 }
