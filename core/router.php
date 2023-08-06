@@ -30,6 +30,10 @@ if(isset($_GET['page'])){
             $page = 'delete.php';
             break;
 
+        case 'update':
+            $page = 'update.php';
+            break;
+
         default:
             $page = 'home.php';
             break;

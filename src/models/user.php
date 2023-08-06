@@ -2,15 +2,6 @@
 require_once(dirname(__FILE__) . '/../utils/functions.php');
 require_once(dirname(__FILE__) . '/../../core/security.php');
 
-// dump(dirname(__FILE__)); //"C:\xampp\htdocs\mes-sites\diginamic\phpTP\src\utils"
-// dump(dirname(__FILE__). '/datas'); //"C:\xampp\htdocs\mes-sites\diginamic\phpTP\src\utils/datas"
-
-// TODOLIST
-    // 1.   Function getUser
-    // 2.   Function setUser
-    // 3.   Function updateUser
-    // 4.   Function deleteUser
-
 
 function getUsers()
 {
@@ -110,9 +101,6 @@ function deleteUsers(&$users, $index)
 
         $file_pointer = fopen($file_path, 'w');
         foreach ($users as $i => $user) {
-            // echo'heillo';
-            // dump('$i ' . $i);
-            // dump('$user ' . $user['email']);
             if ($index != $user['email']) {
                 fwrite($file_pointer, $user["firstname"] . ';' . $user["lastname"] . ';'  . $user["email"] . ';' . $user["password"] . PHP_EOL);
             } else unset($users);
@@ -122,3 +110,70 @@ function deleteUsers(&$users, $index)
 }
 
 
+function updateUserByEmail($email, $data)
+{
+    $newData = formatUser($data);
+    // dump($newData);
+
+    $file = dirname(__FILE__) . '/../datas/users.csv';
+    $tempFile = dirname(__FILE__) . '/../datas/users_temp.csv';
+    $updateSuccessful = false;
+
+    // Lire le contenu du fichier CSV et le stocker dans un tableau
+    $users = [];
+    // if (file_exists($file)) {
+
+    if (($file_pointer = fopen($file, 'r')) !== false) {
+        while (($data = fgetcsv($file_pointer, null, ';')) !== false) {
+            $users[] = $data;
+        }
+        // dump($users); //display chaque users
+        fclose($file_pointer);
+
+
+            foreach ($users as $key => $user) {
+                $currentUserEmail = $user[2]; // L'adresse e-mail est à l'indice 2
+                if ($currentUserEmail === $email) {
+                    // Mettre à jour les données de l'utilisateur
+                    // dump($users[$key]);
+                    $users[$key] = $newData;
+                    // dump($newData);
+                    // dump($users[$key][0]);
+
+                    // ici $users[$key] stock les modif
+                    // dump('current : '. $currentUserEmail);
+                    // dump('email : '. $email);
+                    $updateSuccessful = true;
+                    // break; // Sortir de la boucle une fois l'utilisateur mis à jour
+                }
+            }
+            if ($updateSuccessful) {
+                // Ouvrir le fichier temporaire pour écrire les données mises à jour
+                if (($tempHandle = fopen($tempFile, 'w')) !== false) {
+                    foreach ($users as $user) {
+                        fputcsv($tempHandle, $user, ';');
+                    }
+                    fclose($tempHandle);
+
+                    // Remplacer l'ancien fichier par le fichier temporaire mis à jour
+                    rename($tempFile, $file);
+                    return true;
+                } else {
+                    // Gérer l'erreur si le fichier temporaire ne peut pas être ouvert
+                    return false;
+                }
+            } else {
+                // Si l'utilisateur n'a pas été trouvé
+                return false;
+            }
+    } else {
+            echo 'Une erreur n\'est produite lors de l\'ouverture du fichier';
+
+        return false;
+    }
+
+}
+// else {
+//     echo 'Le fichier n\'existe pas';
+// }
+// }

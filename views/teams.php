@@ -48,7 +48,7 @@ deleteUsers($users, $_GET['delete']);
                     <td>' . $user['firstname'] . '</td>
                     <td>' . $user['lastname'] . '</td>
                     <td>' . $user['email'] . '</td>
-                    <td><a href="/index.php?page=membres&update='.$user['email'].'" class="btn btn-warning">Modifier</a></td>
+                    <td><a href="/index.php?page=update&update='.$user['email'].'" class="btn btn-warning">Modifier</a></td>
                     <td><a href="/index.php?page=membres&delete='.$user['email'].'" class="btn btn-danger">Supprimer</a></td>
                 </tr>
                 ';
