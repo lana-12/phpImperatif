@@ -6,7 +6,6 @@ setUser();
 
 <h2>Création de compte</h2>
 
-
 <form action="index.php?page=creation" method="POST">
 
 

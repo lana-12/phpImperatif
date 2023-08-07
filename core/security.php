@@ -2,29 +2,15 @@
 require_once(dirname(__FILE__).'/../src/models/user.php');
 require_once(dirname(__FILE__).'/../src/utils/functions.php');
 
-// TODOLIST
-    // 1.   Function findUser
-    // 2.   Function findByFirstname
-    // 3.   Function findByLastname
-    // 4.   Function findByEmail
 
-    // 5.   Function connect
-    // 6.   Function disconnect
-
-
-
-function postLog()
-{
-    if(isset($_POST['email'])  && isset($_POST['password']) ){
-        echo $_POST['email'];
-        echo $_POST['password'];
-        echo $_POST['connexion'];
-    }
-}
-
+/**
+ * To start a session if successful Authentication
+ * calling a function search_user(email, pwd) verify user credentials
+ *
+ * @return void
+ */
 function connect()
 {
-
     session_start();
     if (isset($_POST['connexion']) && $_POST['connexion'] === 'connect') {
         session_destroy();
@@ -35,7 +21,6 @@ function connect()
                     'connect'=> true,
                     'email' =>  $_POST['email'],
                 ];
-
                 header('location: http://' . $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . '/index.php?page=accueil');
             } else {
                 echo '
@@ -46,27 +31,22 @@ function connect()
             }
         }
     } 
-    // else {
-    //     session_destroy();
-    // }
 }
 
 
 
-
+/**
+ * Read user data from a CSV file and return it as an associative array.
+ * creates an associative array where the email addresses are used as keys and the corresponding hashed passwords are used as values.
+ *
+ * @return array
+ */
 function read_users()
 {
-    // $result = [];
     if ($fp = fopen(dirname(__FILE__) . '/../src/datas/users.csv', 'r')) {
         while ($user = fgetcsv($fp, null, ';')) {
 
-            // $email = $user[0] = $user[2];
-            // dump('email : ' . $email);
-
-            // $mdp = $user[0] = $user[3];
-            // dump('mdp : ' . $mdp);
-
-            //ICI on recup la clé email + value du mdp
+            //HERE we retrieve the email key + mdp value
             // dump('key email + value MDP : '.$user[2] = $user[3]);
             $result[$user[2]]= $user[3];
         }
@@ -77,9 +57,21 @@ function read_users()
     }
 }
 
+
+/**
+ * Check if user credentials are valid.
+ *
+ * @param string $email The user's email address.
+ * @param string $pwd The user's password.
+ *
+ * @return bool Returns true if the user's credentials are valid, false otherwise.
+ */
 function search_user($email, $pwd)
 {
+      // Read user data to validate against.
     $users = read_users();
+
+    // Check if user array exists, if email exists as a key, and if the provided password matches the hashed password.
     if (is_array($users) && array_key_exists($email, $users) &&  password_verify($pwd, $users[$email])) {
         return true;
     }
@@ -87,7 +79,11 @@ function search_user($email, $pwd)
 }
 
 
-
+/**
+ * Search a user by email
+ * @param string $email
+ * @return bool
+ */
 function searchByEmail($email)
 {
     $users = read_users();
@@ -98,6 +94,15 @@ function searchByEmail($email)
 }
 
 
+/**
+ * Add new user in file => users.csv
+ *
+ * @param string $firstname
+ * @param string $lastname
+ * @param string $email
+ * @param string $pwd
+ * @return bool
+ */
 function addUser($firstname, $lastname, $email, $pwd)
 {
     // "a" ouvrir en pointant à la fin du fichier
@@ -133,17 +138,14 @@ function openUser()
 
 
 /**
- * Undocumented function
- * Formater les new datas enlever les espace + hash
+ * Format new datas remove spaces + hash pwd
  * @param array $user
- * @return void
+ * @return array $newUser
  */
 function formatUser($user){
-    // dump($user[3]);
     if($user[3] !== ""){
         $hash = password_hash($user[3], PASSWORD_DEFAULT);
     }
-    // dump($hash);
     $newUser= [
         trim($user[0]),
         trim($user[1]),

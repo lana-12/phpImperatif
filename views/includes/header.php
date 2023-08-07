@@ -19,12 +19,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/index.php?page=membres">Les Membres</a>
                     </li>
-
                 </ul>
 
                 <ul class="navbar-nav ml-auto">
-
-
                     <li class="nav-item">
                         <a class="nav-link" href="/index.php?page=deconnexion">Déconnexion</a>
                     </li>
@@ -33,9 +30,6 @@
                     </li>
                 </ul>
             </div>
-
-
         </div>
     </nav>
-    
 </header>

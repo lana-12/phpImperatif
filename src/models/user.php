@@ -3,6 +3,11 @@ require_once(dirname(__FILE__) . '/../utils/functions.php');
 require_once(dirname(__FILE__) . '/../../core/security.php');
 
 
+/**
+ * Display users 
+ *
+ * @return array $users
+ */
 function getUsers()
 {
     // Creation an empty array
@@ -13,8 +18,6 @@ function getUsers()
         $file_pointer = fopen($file_path, 'r');
 
         while ($data = fgetcsv($file_pointer, null, ';')) {
-            //Vérif ce que je récupère
-            // dump($data[0]);
 
             //Create an array with datas =>Users
             $users[] = [
@@ -25,16 +28,18 @@ function getUsers()
 
             ];
         }
-        // dump($users[3]['email']);
-        // fclose($file_pointer);
+        fclose($file_pointer);
         return $users;
     } else {
         echo 'Oups, une erreur est survenue lors de l\'ouverture du fichier !!!';
     }
 }
 
-
-
+/**
+ * Create user with form
+ *
+ * @return void
+ */
 function setUser()
 {
     $errors=[];
@@ -47,43 +52,41 @@ function setUser()
             if(isset($_POST['lastname']) && $_POST['lastname'] !== ''){
                 if(isset($_POST['password']) && $_POST['password'] !== ''){
 
-                    $user = searchByEmail($_POST['email']);
-                    if($user === true){
-                        $errors[]= "L'email existe déjà !!";
-                    }else{
-                        if(addUser($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['password'] )){
-                            // echo 'Uutilisateur bien enregistré';
-                            echo '
+                    if(isset($_POST['email']) && $_POST['email'] !== ''){
+                        $user = searchByEmail($_POST['email']);
+                        if ($user === true) {
+                            $errors[] = "L'email existe déjà !!";
+                        } else {
+                            if (addUser($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['password'])) {
+                                // echo 'Uutilisateur bien enregistré';
+                                echo '
                             <div class="alert alert-success mt-5" role="alert">
                             <p class="text-center ">Utilisateur bien enregistré</p>
                             <a href="/index.php?page=accueil">Connecter vous !!</a>
                             </div>';
-                            
-                        } else {
-                            echo 'Une erreur est survenue lors de l\' enregistrement';
+                            } else {
+                                echo 'Une erreur est survenue lors de l\' enregistrement';
+                            }
                         }
+                    } else {
+                        $errors[] = "L'email est obligatoire!!";
                     }
-
                 }else{
-                    $errors= 'Mot de passe obligatoire !!';
+                    $errors[]= 'Mot de passe obligatoire !!';
                 }
-
-
             } else {
-                $errors = 'Votre nom est obligatoire !!';
+                $errors[] = 'Votre nom est obligatoire !!';
             }
-
         }else {
-            $errors = 'Votre prénom est obligatoire !!';
+            $errors[] = 'Votre prénom est obligatoire !!';
         }
-
     }
 
 
     //Marche pas les erreurs ne sont tte ds le array il y a que la première
 
-    // dump($errors);
-    if(count($errors) > 0){
+    dump($errors);
+    if($errors){
         foreach($errors as $error){
             echo '<div class="alert alert-danger mt-5" role="alert">
                 <p class="text-center ">'.$error.'</p>
@@ -93,7 +96,13 @@ function setUser()
 }
 
 
-
+/**
+ * Undocumented function
+ *
+ * @param array $users
+ * @param string $index => queryString delete=$index
+ * @return void
+ */
 function deleteUsers(&$users, $index)
 {
     $file_path = dirname(__FILE__) . '/../datas/users.csv';
@@ -109,7 +118,13 @@ function deleteUsers(&$users, $index)
     }
 }
 
-
+/**
+ * Upadte Account User
+ *
+ * @param [type] $email
+ * @param [type] $data
+ * @return void
+ */
 function updateUserByEmail($email, $data)
 {
     $newData = formatUser($data);
@@ -119,20 +134,21 @@ function updateUserByEmail($email, $data)
     $tempFile = dirname(__FILE__) . '/../datas/users_temp.csv';
     $updateSuccessful = false;
 
-    // Lire le contenu du fichier CSV et le stocker dans un tableau
     $users = [];
-    // if (file_exists($file)) {
-
+    
+    // Lire le contenu du fichier CSV et le stocker dans un tableau
     if (($file_pointer = fopen($file, 'r')) !== false) {
         while (($data = fgetcsv($file_pointer, null, ';')) !== false) {
             $users[] = $data;
         }
-        // dump($users); //display chaque users
+        //display chaque users
+        // dump($users); 
         fclose($file_pointer);
 
 
             foreach ($users as $key => $user) {
-                $currentUserEmail = $user[2]; // L'adresse e-mail est à l'indice 2
+                // Email => index 2
+                $currentUserEmail = $user[2]; 
                 if ($currentUserEmail === $email) {
                     // Mettre à jour les données de l'utilisateur
                     // dump($users[$key]);
@@ -144,7 +160,6 @@ function updateUserByEmail($email, $data)
                     // dump('current : '. $currentUserEmail);
                     // dump('email : '. $email);
                     $updateSuccessful = true;
-                    // break; // Sortir de la boucle une fois l'utilisateur mis à jour
                 }
             }
             if ($updateSuccessful) {
@@ -157,23 +172,18 @@ function updateUserByEmail($email, $data)
 
                     // Remplacer l'ancien fichier par le fichier temporaire mis à jour
                     rename($tempFile, $file);
+
                     return true;
                 } else {
-                    // Gérer l'erreur si le fichier temporaire ne peut pas être ouvert
+                    echo 'Une erreur s\'est produite lors de l\'ouverture du fichier Temporaire';
                     return false;
                 }
             } else {
-                // Si l'utilisateur n'a pas été trouvé
+                echo 'Une erreur n\'est survenue, Utilisateur non trouvé';
                 return false;
             }
     } else {
-            echo 'Une erreur n\'est produite lors de l\'ouverture du fichier';
-
+        echo 'Une erreur s\'est produite lors de l\'ouverture du fichier';
         return false;
     }
-
 }
-// else {
-//     echo 'Le fichier n\'existe pas';
-// }
-// }

@@ -9,7 +9,6 @@ $users = getUsers();
 if(isset($_POST['submit'])){
     $newUserData = [$_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['password']]; 
     $updateResult = updateUserByEmail($_POST['email'], $newUserData);
-    // header('location: http://' . $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . '/index.php?page=accueil');
     if ($updateResult) {
         header('location: http://' . $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . '/index.php?page=membres');
     } else {
@@ -26,7 +25,6 @@ if(isset($_POST['submit'])){
 <?php
         if ($user['email'] === $_GET['update']) {
     ?>
-
             <div class="mb-3">
                 <label for="firstname" class="form-label">Votre Prénom</label>
                 <input type="firstname" class="form-control" id="firstname" name="firstname" aria-describedby="firstnameHelp" value=" <?= $user['firstname'] ?> ">
@@ -45,7 +43,6 @@ if(isset($_POST['submit'])){
             </div>
 
             <input type="submit" class="btn btn-primary" name='submit' value="Modifier votre compte">
-
     <?php
         }
     }

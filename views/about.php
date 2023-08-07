@@ -29,7 +29,5 @@ session_start();
         <p>Explorez notre site pour en apprendre davantage sur nos actions, les défis auxquels nous faisons face et les succès que nous avons déjà accomplis. Soyez informé des prochaines campagnes de sensibilisation, des événements et des opportunités de bénévolat. Rejoignez-nous dans cette aventure passionnante pour protéger le loup et préserver notre environnement.</p>
         <p>Merci pour votre intérêt et votre soutien envers l'Association de Protection du Loup. Ensemble, nous pouvons faire la différence. Agissons maintenant pour un avenir meilleur pour les loups et pour la nature qui les entoure !</p>
 
-
-
     </div>
 </div>

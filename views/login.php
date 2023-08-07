@@ -1,7 +1,6 @@
 <?php
 require_once(dirname(__FILE__) . '/../core/security.php');
 connect();
-
 ?>
 
 <h2>Me connecter</h2>
@@ -27,7 +26,6 @@ connect();
         <div class="d-flex justify-content-between">
             <input type="submit" class="btn btn-primary" value="Envoyer">
             <a href="/index.php?page=creation " class="btn btn-primary">Créer un compte</a>
-
         </div>
 
     </form>
