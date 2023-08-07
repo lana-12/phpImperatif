@@ -1,21 +1,19 @@
 <?php
 session_start();
 
-
 require(dirname(__FILE__) . '/../src/utils/functions.php');
 require(dirname(__FILE__) . '/../src/models/user.php');
 
 $users  = getUsers();
-//Get a queryString + handle errors if not clicked
+
 if (isset($_GET['sort']) && isset($_GET['order'])) {
     sortAlpha($users, $_GET['sort'], $_GET['order']);
 }
 
 if (isset($_SESSION['user']) && $_SESSION['user'] && isset($_GET["delete"])) {
-dump($_GET['delete']);
-deleteUsers($users, $_GET['delete']);
+    deleteUsers($users, $_GET['delete']);
     header('location: http://' . $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . '/index.php?page=membres');
-    }
+}
 
 ?>
 
@@ -26,7 +24,7 @@ deleteUsers($users, $_GET['delete']);
 
         <?php
         if (isset($_SESSION['user']) && $_SESSION['user']) {
-            echo '<p class="text-muted"><i class="bi bi-person-fill">Connecté en tant que <span class="user">' . $_SESSION['user']['email'] . ' </span></i></p>';
+            echo '<p class="text-muted">Connecté en tant que <span class="user">' . $_SESSION['user']['email'] . ' </span></p>';
 
             $sorts = getSortOrder();
             $level = 1;

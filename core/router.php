@@ -1,6 +1,4 @@
 <?php
-
-
 $page = 'home.php';
 
 if(isset($_GET['page'])){
