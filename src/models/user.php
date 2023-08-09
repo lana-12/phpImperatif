@@ -85,7 +85,6 @@ function setUser()
 
     //Marche pas les erreurs ne sont tte ds le array il y a que la première
 
-    dump($errors);
     if($errors){
         foreach($errors as $error){
             echo '<div class="alert alert-danger mt-5" role="alert">

@@ -1,0 +1,13 @@
+@mixin btnCustom($bgcH,
+    $fgcH) {
+    margin: 5px;
+    padding: 5px;
+    text-decoration: none;
+    transition: 0.6s;
+    transition-property: background-color, color;
+    &:hover {
+        background-color: $bgcH;
+        color: $fgcH;
+        cursor: pointer;
+    }
+}
