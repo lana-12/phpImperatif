@@ -1,0 +1,9 @@
+.btnUpdate {
+    @include btnCustom(#000, #fff);
+}
+
+
+
+.btnDelete {
+    @include btnCustom(#000, #ff0000);
+}

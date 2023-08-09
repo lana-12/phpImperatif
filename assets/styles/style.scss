@@ -1,10 +1,11 @@
 // Imports utils
-@import "./scss/utils/body";
+@import "./scss/utils/mixins.scss";
 
 
 // Imports modules
 @import "./scss/modules/footer.scss";
-@import "./scss/modules/cardUser.scss";
+@import "./scss/modules/user.scss";
+@import "./scss/modules/btn.scss";
 
 
 
