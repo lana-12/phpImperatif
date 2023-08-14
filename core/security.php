@@ -11,7 +11,7 @@ require_once(dirname(__FILE__).'/../src/utils/functions.php');
  */
 function connect()
 {
-    session_start();
+    // session_start();
     if (isset($_POST['connexion']) && $_POST['connexion'] === 'connect') {
         session_destroy();
         if (isset($_POST['email']) && isset($_POST['password'])) {

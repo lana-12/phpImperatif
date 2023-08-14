@@ -1,7 +1,3 @@
-<?php
-session_start();
-?>
-
 <h2 class="text-center m-5">Bienvenue</h2>
 
 <div class="row">
