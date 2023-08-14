@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 require(dirname(__FILE__) . '/../src/utils/functions.php');
 require(dirname(__FILE__) . '/../src/models/user.php');
@@ -58,8 +57,8 @@ if (isset($_SESSION['user']) && $_SESSION['user'] && isset($_GET["delete"])) {
             echo '
                 <div class="alert alert-danger mt-5" role="alert">
                     <p class="text-center ">Vous devez être connecté</p>
-                    <a href="/index.php?page=connexion">Se connecter</a>
-                    <a href="/index.php?page=creation"> / Créer un compte</a>
+                    <p><a href="/index.php?page=connexion">Se connecter</a></p>
+                    <p><a href="/index.php?page=creation">Créer un compte</a></p>
                 </div>';
         }
         ?>

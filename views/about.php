@@ -1,7 +1,3 @@
-<?php
-session_start();
-?>
-
 <h2 class="text-center mt-3">Qui sommes nous ??</h2>
 
 <div class="row">

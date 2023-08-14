@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark text-white">
         <div class="container-fluid">
@@ -22,12 +26,20 @@
                 </ul>
 
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/index.php?page=deconnexion">Déconnexion</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/index.php?page=connexion">Connexion</a>
-                    </li>
+                <?php
+                    if (isset($_SESSION['user']) && ($_SESSION['user'])) {
+                        echo 
+                            '<li class="nav-item">
+                                <a class="nav-link" href="/index.php?page=deconnexion">Deconnexion</a>
+                            </li>';
+                    } else {
+                        echo 
+                        '<li class="nav-item">
+                            <a class="nav-link" href="/index.php?page=connexion">Connexion</a>
+                        </li>';
+                    }
+
+                    ?>
                 </ul>
             </div>
         </div>
